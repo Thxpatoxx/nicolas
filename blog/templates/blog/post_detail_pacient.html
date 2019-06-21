@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+    <title>Clinica</title>
+</head>
+<body>
+    <div class="loginform">
+        <div class="hola"><p>Examenes</p></div>
+        <div class="que">
+        <br>
+        Paciente: {{Pacientes.rut}}
+        <a href="{% url 'post_edit_pacient' pk=Pacientes.pk %}"> <button class="botoneditar">editar</button> </a>
+        <a href="{% url 'historial' %}"> <button class="botoneditar">Historial Medico</button> </a>
+        </div>
+        <br>
+        <div class="listadoa">
+            <nav class="fraccion"><h1>CODIGO:</h1></nav>
+            <nav class="fraccion"><h1>FECHA:</h1></nav>
+            <nav class="fraccion"><h1>ESTADO:</h1></nav>
+        </div>
+        <hr>
+        <br>
+        
+        {% for Diagnostico in Diagnosticos %} 
+            {% if Diagnostico.paciente == Pacientes %}
+            <div class="listado">
+              <a href="{% url 'post_detail' pk=Diagnostico.pk %}">
+                  <nav class="fraccion"><h1>{{ Diagnostico.paciente }}</h1></nav>
+                  <nav class="fraccion"><h1>{{ Diagnostico.fecha }}</h1></nav>
+                  <nav class="fraccion"><h1>{{ Diagnostico.estado }}</h1></nav>
+              </a>
+            </div>
+            {% endif %}
+            <hr>
+        {% endfor %}
+        <br>
+        <a href="{% url 'post_list_pacient' %}"><button>VOLVER</button></a>
+        <a href="{% url 'post_new' %}"><button>Agregar</button></a>
+    </div>
+</body>
+</html>
